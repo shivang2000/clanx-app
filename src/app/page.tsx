@@ -11,7 +11,7 @@ import {
   useGetWeatherDataQuery,
 } from "@/Store";
 import { updateAppStore } from "@/Store/appStoreSlice";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Home() {
@@ -31,7 +31,13 @@ export default function Home() {
         })
       );
   }, [data, dispatch]);
-  const windowHeight = useMemo(() => window.screen.availHeight * 0.95, []);
+
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    setWindowHeight((window?.screen.availHeight ?? 0) * 0.95);
+  }, []);
+
   return (
     <Providers>
       <div
